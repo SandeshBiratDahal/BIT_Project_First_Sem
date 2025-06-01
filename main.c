@@ -5,6 +5,16 @@
 
 int create_menu(char title[], char options[][50], int, int);
 
+
+
+//FUNCTIONS FOR GAMES
+
+//TIC TAC TOE
+void tic_tac_toe();
+void print_board(char board[], int);
+int take_player_input(char board[], int);
+
+
 int main(){
     char options[][50] = {
         "Tic-Tac-Toe", "Hangman", "Scissor-Paper-Rock"
@@ -14,6 +24,12 @@ int main(){
 
     strcpy(selected_game, options[i]);
     printf("%s", selected_game);
+
+    switch(i){
+        case 0: 
+            tic_tac_toe();
+            break;
+    }
     return 0;
 }
 
@@ -40,9 +56,44 @@ int create_menu(char title[30], char options[][50], int n, int spacing){
         else if (input == 13){
             return cursor;
         }
-
-        if (cursor < 0) cursor = 0;
-        if (cursor > n - 1) cursor = n - 1;
         
+        if (cursor < 0) cursor = 0;
+        if (cursor > n - 1) cursor = n - 1; 
     }
+}
+
+void tic_tac_toe(){
+    int turn = 0;
+    char board[9] = {'.', '.', '.', '.', '.', '.', '.', '.', '.'};
+
+    while (!check_winner(board)){
+        print_board(board, 0);
+        int move = take_player_input(board, turn);
+    }
+}
+
+int take_player_input(char board[], int turn){
+    
+    int move, valid = 0;
+
+    while (!valid){
+        if (turn % 2 == 0){
+            printf("\nPlayer X: ");
+        }
+        else{
+            printf("\nPlayer O: ");
+        }
+        scanf("%d", &move);
+        if (board[move - 1] == '.') valid = 1;
+    }
+    
+}
+
+void print_board(char board[], int cursor){
+    system("cls");
+
+    printf("            Tic Tac Toe\n\n");
+    printf("  %c              %c             %c\n\n\n", board[0], board[1], board[2]);
+    printf("  %c              %c             %c\n\n\n", board[3], board[4], board[5]);
+    printf("  %c              %c             %c\n", board[6], board[7], board[8]);
 }

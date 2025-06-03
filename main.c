@@ -13,6 +13,7 @@ int create_menu(char title[], char options[][50], int, int);
 void tic_tac_toe();
 void print_board(char board[], int);
 int take_player_input(char board[], int);
+int check_winner(char board[]);
 
 
 int main(){
@@ -66,11 +67,24 @@ void tic_tac_toe(){
     int turn = 0;
     char board[9] = {'.', '.', '.', '.', '.', '.', '.', '.', '.'};
 
-    while (!check_winner(board)){
+    while (1){
         print_board(board, 0);
         int move = take_player_input(board, turn);
     }
 }
+
+int check_winner(char board[]){
+    int win_conditions[][3] = {
+        {0, 1, 2}, {0, 3, 6}, {0, 4, 8}, {1, 4, 7}, {2, 4, 6}, {3, 4, 5}, {2, 5, 8}, {6, 7, 8}
+    };
+
+    int i, j;
+    for (i = 0; i < 8; i++){
+        if (1){}
+    }
+    
+}
+
 
 int take_player_input(char board[], int turn){
     

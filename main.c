@@ -2,10 +2,24 @@
 #include<stdlib.h>
 #include<conio.h>
 #include<string.h>
+#include<time.h>
 
+char words[][15] = {
+    "apple", "banana", "cherry", "dragon", "eagle", "falcon", "guitar", "hockey", "island", "jungle",
+    "kitten", "lemon", "monkey", "nachos", "ocean", "python", "quartz", "rocket", "sunset", "turtle",
+    "unicorn", "violet", "walrus", "xenon", "yellow", "zebra", "amber", "blaze", "cactus", "daisy",
+    "ember", "frost", "glide", "hazel", "ivory", "jewel", "karma", "lunar", "mango", "noble",
+    "olive", "pearl", "quest", "raven", "spike", "thief", "urban", "vivid", "whale", "xylem",
+    "yacht", "zeal", "actor", "brave", "cabin", "depot", "elite", "fable", "giant", "habit",
+    "ideal", "jaunt", "kneel", "latch", "mirth", "nudge", "orbit", "pride", "quail", "realm",
+    "sheep", "tower", "ultra", "vixen", "woven", "xerox", "yield", "zesty", "angel", "beach",
+    "creek", "dodge", "envoy", "flame", "grape", "harpy", "inbox", "joust", "koala", "liver",
+    "moose", "ninja", "oxide", "piano", "quake", "risky", "snail", "tribe", "umbra", "vista"
+};
+
+
+//UTILITY FUNCTIONS
 int create_menu(char title[], char options[][50], int, int);
-
-
 
 //FUNCTIONS FOR GAMES
 
@@ -15,6 +29,9 @@ void print_board(char board[], int);
 int take_player_input(char board[], int);
 int check_winner(char board[]);
 
+//HANGMAN
+void hangman();
+void print_guessed_word(char guessed_word[], int length);
 
 int main(){
     char options[][50] = {
@@ -24,11 +41,13 @@ int main(){
     char selected_game[50];
 
     strcpy(selected_game, options[i]);
-    printf("%s", selected_game);
 
     switch(i){
         case 0: 
             tic_tac_toe();
+            break;
+        case 1:
+            hangman();
             break;
     }
     return 0;
@@ -110,4 +129,26 @@ void print_board(char board[], int cursor){
     printf("  %c              %c             %c\n\n\n", board[0], board[1], board[2]);
     printf("  %c              %c             %c\n\n\n", board[3], board[4], board[5]);
     printf("  %c              %c             %c\n", board[6], board[7], board[8]);
+}
+
+void hangman(){
+    system("cls");
+    printf("            Hangman\n\n");
+    srand(time(NULL));
+    char current_word[15];
+    strcpy(current_word, words[rand() % 100]);
+
+    int word_length = strlen(current_word);
+    char guessed_word[word_length];
+
+    for (int i = 0; i < word_length; i++) guessed_word[i] = '_';
+
+    print_guessed_word(guessed_word, word_length);
+
+}
+
+void print_guessed_word(char guessed_word[], int length){
+    for (int i = 0; i < length; i++){
+        printf("%c ", guessed_word[i]);
+    }
 }
